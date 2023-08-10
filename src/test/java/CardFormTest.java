@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.util.List;
 
@@ -19,11 +20,17 @@ public class CardFormTest {
     @BeforeAll
     static void setupClass() {
         WebDriverManager.firefoxdriver().setup();
+
     }
 
     @BeforeEach
     void setupTest() {
-        driver = new FirefoxDriver();
+        FirefoxOptions options = new FirefoxOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        driver = new FirefoxDriver(options);
+        driver.get("http://localhost:9999/");
     }
 
     @AfterEach
